@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Background Properties Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+
+body{
+  margin:0;
+  background:#ffffff;
+  min-height:100vh;
+}
+
+header{
+  padding:14px 20px;
+  background:#f1f5f9;
+  border-bottom:3px solid #6366f1;
+  font-size:22px;
+  font-weight:bold;
+  color:#1e3a8a;
+}
+
+.app{
+  display:flex;
+  height:calc(100vh - 70px);
+}
+
+.controls{
+  width:380px;
+  padding:16px;
+  background:#f8fafc;
+  border-right:2px solid #c7d2fe;
+  overflow:auto;
+}
+
+.controls h2{
+  margin:8px 0 14px;
+  color:#1e40af;
+}
+
+.sub{
+  font-weight:bold;
+  margin:12px 0 6px;
+  color:#312e81;
+}
+
+.group{
+  margin-bottom:14px;
+}
+
+select,button{
+  width:100%;
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #94a3b8;
+  margin-bottom:6px;
+  font-size:14px;
+}
+
+button{
+  background:#4f46e5;
+  color:white;
+  cursor:pointer;
+}
+
+.demo{
+  flex:1;
+  padding:20px;
+}
+
+.stage{
+  width:380px;
+  height:240px;
+  border:3px dashed #6366f1;
+  border-radius:12px;
+  background:#ffffff;
+}
+
+.box{
+  width:100%;
+  height:100%;
+  border-radius:8px;
+  background:white;
+}
+
+.code{
+  background:#0f172a;
+  color:#e5e7eb;
+  padding:10px;
+  border-radius:8px;
+  font-family:Consolas,monospace;
+  margin:12px 0;
+}
+
+.desc{
+  background:#f1f5f9;
+  border-left:5px solid #6366f1;
+  padding:10px;
+  border-radius:8px;
+  color:#1e293b;
+  white-space:pre-line;
+}
+
+.alert{
+  color:red;
+  font-weight:bold;
+  margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>CSS Background Properties Interactive Demo</header>
+
+<div class="app">
+
+<div class="controls">
+
+<h2>Background Properties</h2>
+
+<div class="sub">background-color</div>
+<div class="group">
+<select onchange="setBgColor(this.value)">
+<option disabled selected>Choose</option>
+<option value="white">white</option>
+<option value="lightblue">lightblue</option>
+<option value="lightgreen">lightgreen</option>
+<option value="lightcoral">lightcoral</option>
+</select>
+</div>
+
+<div class="sub">background (gradients)</div>
+<div class="group">
+<select onchange="setGradient(this.value)">
+<option disabled selected>Choose</option>
+
+<option value="linear-gradient(red, yellow)">Linear – 2 colors</option>
+<option value="linear-gradient(red, yellow, green)">Linear – 3 colors</option>
+<option value="linear-gradient(45deg, red, yellow, green)">Linear 45deg – 3 colors</option>
+
+<option value="radial-gradient(red, yellow)">Radial normal – 2 colors</option>
+<option value="radial-gradient(red, yellow, green)">Radial normal – 3 colors</option>
+<option value="radial-gradient(circle, blue, white)">Radial circle – 2 colors</option>
+<option value="radial-gradient(circle, blue, white, green)">Radial circle – 3 colors</option>
+
+<option value="conic-gradient(red, yellow, green)">Conical – 3 colors</option>
+<option value="conic-gradient(red, yellow, green, blue)">Conical – 4 colors</option>
+
+<option value="repeating-linear-gradient(red 0px, yellow 40px)">Repeating linear – 2 colors</option>
+<option value="repeating-linear-gradient(45deg, red 0px, yellow 40px)">Repeating linear 45deg – 2 colors</option>
+<option value="repeating-radial-gradient(red 0px, yellow 40px)">Repeating radial</option>
+<option value="repeating-radial-gradient(circle, blue 0px, white 30px)">Repeating radial circle</option>
+
+</select>
+</div>
+
+<div class="sub">background-image (image)</div>
+<div class="group">
+<select onchange="setBgImage(this.value)">
+<option disabled selected>Choose</option>
+<option value="url('logo.png')">Logo image</option>
+</select>
+</div>
+
+<div class="sub">background-repeat</div>
+<div class="group">
+<select onchange="setBgRepeat(this.value)">
+<option disabled selected>Choose</option>
+<option value="repeat">repeat</option>
+<option value="repeat-x">repeat-x</option>
+<option value="repeat-y">repeat-y</option>
+<option value="no-repeat">no-repeat</option>
+</select>
+</div>
+
+<div class="sub">background-size</div>
+<div class="group">
+<select onchange="setBgSize(this.value)">
+<option disabled selected>Choose</option>
+<option value="auto">auto</option>
+<option value="80px 80px">80px 80px</option>
+<option value="contain">contain</option>
+<option value="cover">cover</option>
+</select>
+</div>
+
+<div class="sub">background-position</div>
+<div class="group">
+<select onchange="setBgPosition(this.value)">
+<option disabled selected>Choose</option>
+<option value="center">center</option>
+<option value="top left">top left</option>
+<option value="bottom right">bottom right</option>
+</select>
+</div>
+
+<div id="alert" class="alert"></div>
+
+<button onclick="resetAll()">Reset</button>
+
+</div>
+
+<div class="demo">
+<h2>Live Preview</h2>
+
+<div class="stage">
+<div id="box" class="box"></div>
+</div>
+
+<h2>Minimal CSS Used</h2>
+<div id="code" class="code">Select an option</div>
+<div id="desc" class="desc">Description will appear here</div>
+</div>
+
+</div>
+
+<script>
+const box=document.getElementById("box");
+const code=document.getElementById("code");
+const desc=document.getElementById("desc");
+const alertBox=document.getElementById("alert");
+let imageSelected=false;
+let sizeSelected=false;
+
+function showError(msg){
+  alertBox.innerText=msg;
+}
+
+function clearError(){
+  alertBox.innerText="";
+}
+
+function setBgColor(v){
+  clearError();
+  box.style.background=v;
+  imageSelected=false;
+  sizeSelected=false;
+  code.innerText=`background-color: ${v};`;
+  desc.innerText=
+  "Sets a solid background color for the element.\n"+
+  "This color is visible when no image or gradient is applied.";
+}
+
+function setGradient(v){
+  clearError();
+  box.style.background=v;
+  imageSelected=false;
+  sizeSelected=false;
+  code.innerText=`background: ${v};`;
+  desc.innerText=
+  "Gradients generate smooth color transitions using CSS.\n"+
+  "They can be linear, radial, conic, or repeating without image files.";
+}
+
+function setBgImage(v){
+  clearError();
+  box.style.backgroundImage=v;
+  box.style.backgroundSize="80px 80px";
+  sizeSelected=true;
+  imageSelected=true;
+  code.innerText=`background-image: ${v};`;
+  desc.innerText=
+  "Applies an image as the background of the element.\n"+
+  "Using a small image helps demonstrate repeat, size, and position clearly.";
+}
+
+function setBgRepeat(v){
+  if(!imageSelected){showError("Please select a background image first.");return;}
+  clearError();
+  box.style.backgroundRepeat=v;
+  code.innerText=`background-repeat: ${v};`;
+  desc.innerText=
+  v==="repeat"
+  ?"Repeats the image horizontally and vertically.\nThe image tiles to fill the entire element."
+  :v==="repeat-x"
+  ?"Repeats the image only along the horizontal axis.\nVertical repetition does not occur."
+  :v==="repeat-y"
+  ?"Repeats the image only along the vertical axis.\nHorizontal repetition does not occur."
+  :"Displays the image only once.\nNo tiling is applied.";
+}
+
+function setBgSize(v){
+  if(!imageSelected){showError("Please select a background image first.");return;}
+  clearError();
+  box.style.backgroundSize=v;
+  sizeSelected=(v==="80px 80px");
+  code.innerText=`background-size: ${v};`;
+  desc.innerText=
+  "Controls how large the background image appears.\n"+
+  "Fixed sizes like 80px 80px make repetition and position easier to see.";
+}
+
+function setBgPosition(v){
+  if(!imageSelected){showError("Please select a background image first.");return;}
+  if(!sizeSelected){
+    showError("For clear understanding, select background-size as 80px 80px.");
+    return;
+  }
+  clearError();
+  box.style.backgroundPosition=v;
+  code.innerText=`background-position: ${v};`;
+  desc.innerText=
+  "Defines where the background image starts inside the element.\n"+
+  "Positioning effects are clearer when the background-size is 80px 80px and background-repeat is no-repeat.";
+}
+
+function resetAll(){
+  clearError();
+  imageSelected=false;
+  sizeSelected=false;
+  box.style.background="white";
+  box.style.backgroundImage="none";
+  code.innerText="Select an option";
+  desc.innerText="Description will appear here";
+  document.querySelectorAll("select").forEach(s=>s.selectedIndex=0);
+}
+</script>
+
+</body>
+</html>
