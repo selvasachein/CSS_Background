@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -234,12 +235,20 @@ function clearError(){
   alertBox.innerText="";
 }
 
+function addCode(line){
+  if(code.innerText==="Select an option"){
+    code.innerText=line;
+  }else if(!code.innerText.includes(line)){
+    code.innerText += "\n" + line;
+  }
+}
+
 function setBgColor(v){
   clearError();
   box.style.background=v;
   imageSelected=false;
   sizeSelected=false;
-  code.innerText=`background-color: ${v};`;
+  addCode(`background-color: ${v};`);
   desc.innerText=
   "Sets a solid background color for the element.\n"+
   "This color is visible when no image or gradient is applied.";
@@ -250,7 +259,7 @@ function setGradient(v){
   box.style.background=v;
   imageSelected=false;
   sizeSelected=false;
-  code.innerText=`background: ${v};`;
+  addCode(`background: ${v};`);
   desc.innerText=
   "Gradients generate smooth color transitions using CSS.\n"+
   "They can be linear, radial, conic, or repeating without image files.";
@@ -262,7 +271,7 @@ function setBgImage(v){
   box.style.backgroundSize="80px 80px";
   sizeSelected=true;
   imageSelected=true;
-  code.innerText=`background-image: ${v};`;
+  addCode(`background-image: ${v};`);
   desc.innerText=
   "Applies an image as the background of the element.\n"+
   "Using a small image helps demonstrate repeat, size, and position clearly.";
@@ -272,7 +281,7 @@ function setBgRepeat(v){
   if(!imageSelected){showError("Please select a background image first.");return;}
   clearError();
   box.style.backgroundRepeat=v;
-  code.innerText=`background-repeat: ${v};`;
+  addCode(`background-repeat: ${v};`);
   desc.innerText=
   v==="repeat"
   ?"Repeats the image horizontally and vertically.\nThe image tiles to fill the entire element."
@@ -288,7 +297,7 @@ function setBgSize(v){
   clearError();
   box.style.backgroundSize=v;
   sizeSelected=(v==="80px 80px");
-  code.innerText=`background-size: ${v};`;
+  addCode(`background-size: ${v};`);
   desc.innerText=
   "Controls how large the background image appears.\n"+
   "Fixed sizes like 80px 80px make repetition and position easier to see.";
@@ -302,7 +311,7 @@ function setBgPosition(v){
   }
   clearError();
   box.style.backgroundPosition=v;
-  code.innerText=`background-position: ${v};`;
+  addCode(`background-position: ${v};`);
   desc.innerText=
   "Defines where the background image starts inside the element.\n"+
   "Positioning effects are clearer when the background-size is 80px 80px and background-repeat is no-repeat.";
@@ -319,6 +328,7 @@ function resetAll(){
   document.querySelectorAll("select").forEach(s=>s.selectedIndex=0);
 }
 </script>
+
 
 </body>
 </html>
