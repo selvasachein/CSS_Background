@@ -229,14 +229,16 @@ function clearError(){
 }
 
 function addCode(line, accumulate=false){
+  const prop=line.split(":")[0];
+  let lines=code.innerText==="Select an option"?[]:code.innerText.split("\n");
+
+  lines=lines.filter(l=>!l.startsWith(prop+":"));
+
   if(!accumulate){
     code.innerText=line;
   }else{
-    if(code.innerText==="Select an option"){
-      code.innerText=line;
-    }else if(!code.innerText.includes(line)){
-      code.innerText += "\n" + line;
-    }
+    lines.push(line);
+    code.innerText=lines.join("\n");
   }
 }
 
@@ -268,7 +270,7 @@ function setBgImage(v){
   box.style.backgroundSize="80px 80px";
   sizeSelected=true;
   imageSelected=true;
-  addCode(`background-image: ${v};`, false);
+  addCode(`background-image: ${v};`, true);
   desc.innerText=
   "Applies an image as the background of the element.\n"+
   "Using a small image helps demonstrate repeat, size, and position clearly.";
