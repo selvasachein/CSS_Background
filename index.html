@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -138,24 +137,19 @@ button{
 <div class="group">
 <select onchange="setGradient(this.value)">
 <option disabled selected>Choose</option>
-
 <option value="linear-gradient(red, yellow)">Linear – 2 colors</option>
 <option value="linear-gradient(red, yellow, green)">Linear – 3 colors</option>
 <option value="linear-gradient(45deg, red, yellow, green)">Linear 45deg – 3 colors</option>
-
 <option value="radial-gradient(red, yellow)">Radial normal – 2 colors</option>
 <option value="radial-gradient(red, yellow, green)">Radial normal – 3 colors</option>
 <option value="radial-gradient(circle, blue, white)">Radial circle – 2 colors</option>
 <option value="radial-gradient(circle, blue, white, green)">Radial circle – 3 colors</option>
-
 <option value="conic-gradient(red, yellow, green)">Conical – 3 colors</option>
 <option value="conic-gradient(red, yellow, green, blue)">Conical – 4 colors</option>
-
 <option value="repeating-linear-gradient(red 0px, yellow 40px)">Repeating linear – 2 colors</option>
 <option value="repeating-linear-gradient(45deg, red 0px, yellow 40px)">Repeating linear 45deg – 2 colors</option>
 <option value="repeating-radial-gradient(red 0px, yellow 40px)">Repeating radial</option>
 <option value="repeating-radial-gradient(circle, blue 0px, white 30px)">Repeating radial circle</option>
-
 </select>
 </div>
 
@@ -200,7 +194,6 @@ button{
 </div>
 
 <div id="alert" class="alert"></div>
-
 <button onclick="resetAll()">Reset</button>
 
 </div>
@@ -235,11 +228,15 @@ function clearError(){
   alertBox.innerText="";
 }
 
-function addCode(line){
-  if(code.innerText==="Select an option"){
+function addCode(line, accumulate=false){
+  if(!accumulate){
     code.innerText=line;
-  }else if(!code.innerText.includes(line)){
-    code.innerText += "\n" + line;
+  }else{
+    if(code.innerText==="Select an option"){
+      code.innerText=line;
+    }else if(!code.innerText.includes(line)){
+      code.innerText += "\n" + line;
+    }
   }
 }
 
@@ -248,7 +245,7 @@ function setBgColor(v){
   box.style.background=v;
   imageSelected=false;
   sizeSelected=false;
-  addCode(`background-color: ${v};`);
+  addCode(`background-color: ${v};`, false);
   desc.innerText=
   "Sets a solid background color for the element.\n"+
   "This color is visible when no image or gradient is applied.";
@@ -259,7 +256,7 @@ function setGradient(v){
   box.style.background=v;
   imageSelected=false;
   sizeSelected=false;
-  addCode(`background: ${v};`);
+  addCode(`background: ${v};`, false);
   desc.innerText=
   "Gradients generate smooth color transitions using CSS.\n"+
   "They can be linear, radial, conic, or repeating without image files.";
@@ -271,7 +268,7 @@ function setBgImage(v){
   box.style.backgroundSize="80px 80px";
   sizeSelected=true;
   imageSelected=true;
-  addCode(`background-image: ${v};`);
+  addCode(`background-image: ${v};`, false);
   desc.innerText=
   "Applies an image as the background of the element.\n"+
   "Using a small image helps demonstrate repeat, size, and position clearly.";
@@ -281,7 +278,7 @@ function setBgRepeat(v){
   if(!imageSelected){showError("Please select a background image first.");return;}
   clearError();
   box.style.backgroundRepeat=v;
-  addCode(`background-repeat: ${v};`);
+  addCode(`background-repeat: ${v};`, true);
   desc.innerText=
   v==="repeat"
   ?"Repeats the image horizontally and vertically.\nThe image tiles to fill the entire element."
@@ -297,7 +294,7 @@ function setBgSize(v){
   clearError();
   box.style.backgroundSize=v;
   sizeSelected=(v==="80px 80px");
-  addCode(`background-size: ${v};`);
+  addCode(`background-size: ${v};`, true);
   desc.innerText=
   "Controls how large the background image appears.\n"+
   "Fixed sizes like 80px 80px make repetition and position easier to see.";
@@ -311,7 +308,7 @@ function setBgPosition(v){
   }
   clearError();
   box.style.backgroundPosition=v;
-  addCode(`background-position: ${v};`);
+  addCode(`background-position: ${v};`, true);
   desc.innerText=
   "Defines where the background image starts inside the element.\n"+
   "Positioning effects are clearer when the background-size is 80px 80px and background-repeat is no-repeat.";
@@ -328,7 +325,6 @@ function resetAll(){
   document.querySelectorAll("select").forEach(s=>s.selectedIndex=0);
 }
 </script>
-
 
 </body>
 </html>
