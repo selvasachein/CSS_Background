@@ -244,6 +244,11 @@ function addCode(line, accumulate=false){
 
 function setBgColor(v){
   clearError();
+  document.querySelectorAll("select")[1].selectedIndex = 0;
+  document.querySelectorAll("select")[2].selectedIndex = 0;
+  document.querySelectorAll("select")[3].selectedIndex = 0;
+  document.querySelectorAll("select")[4].selectedIndex = 0;
+  document.querySelectorAll("select")[5].selectedIndex = 0;
   box.style.background=v;
   imageSelected=false;
   sizeSelected=false;
@@ -255,6 +260,11 @@ function setBgColor(v){
 
 function setGradient(v){
   clearError();
+  document.querySelectorAll("select")[0].selectedIndex = 0;
+  document.querySelectorAll("select")[2].selectedIndex = 0;
+  document.querySelectorAll("select")[3].selectedIndex = 0;
+  document.querySelectorAll("select")[4].selectedIndex = 0;
+  document.querySelectorAll("select")[5].selectedIndex = 0;
   box.style.background=v;
   imageSelected=false;
   sizeSelected=false;
@@ -266,11 +276,13 @@ function setGradient(v){
 
 function setBgImage(v){
   clearError();
+  document.querySelectorAll("select")[0].selectedIndex = 0;
+  document.querySelectorAll("select")[1].selectedIndex = 0;
   box.style.backgroundImage=v;
   box.style.backgroundSize="80px 80px";
   sizeSelected=true;
   imageSelected=true;
-  addCode(`background-image: ${v};`, true);
+  addCode(`background-image: ${v};`, false);
   desc.innerText=
   "Applies an image as the background of the element.\n"+
   "Using a small image helps demonstrate repeat, size, and position clearly.";
