@@ -289,7 +289,7 @@ function setBgImage(v){
 }
 
 function setBgRepeat(v){
-  if(!imageSelected){showError("Please select a background image first.");return;}
+  if(!imageSelected){showError("Please select a background image first.");document.querySelectorAll("select").forEach(s=>s.selectedIndex=0);return;}
   clearError();
   box.style.backgroundRepeat=v;
   addCode(`background-repeat: ${v};`, true);
@@ -304,7 +304,7 @@ function setBgRepeat(v){
 }
 
 function setBgSize(v){
-  if(!imageSelected){showError("Please select a background image first.");return;}
+  if(!imageSelected){showError("Please select a background image first.");document.querySelectorAll("select").forEach(s=>s.selectedIndex=0);return;}
   clearError();
   box.style.backgroundSize=v;
   sizeSelected=(v==="80px 80px");
@@ -316,11 +316,11 @@ function setBgSize(v){
 
 function setBgPosition(v){
 
-  if(!imageSelected){showError("Please select a background image first.");return;}
+  if(!imageSelected){showError("Please select a background image first.");document.querySelectorAll("select").forEach(s=>s.selectedIndex=0);return;}
   box.style.backgroundPosition=v;
   addCode(`background-position: ${v};`, true);
   if(!sizeSelected){
-    showError("For clear understanding, select background-size as 80px 80px.");
+    showError("For clear understanding, select background-size as 80px 80px and background-repeat as no-repeat");
     return;
   }
   clearError();
