@@ -315,14 +315,15 @@ function setBgSize(v){
 }
 
 function setBgPosition(v){
+
   if(!imageSelected){showError("Please select a background image first.");return;}
+  box.style.backgroundPosition=v;
+  addCode(`background-position: ${v};`, true);
   if(!sizeSelected){
     showError("For clear understanding, select background-size as 80px 80px.");
     return;
   }
   clearError();
-  box.style.backgroundPosition=v;
-  addCode(`background-position: ${v};`, true);
   desc.innerText=
   "Defines where the background image starts inside the element.\n"+
   "Positioning effects are clearer when the background-size is 80px 80px and background-repeat is no-repeat.";
